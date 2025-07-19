@@ -8,6 +8,8 @@ aws:
       region: ${AWS_S3_STORAGE_REGION:eu-north-1}
       bucket-name: ${AWS_S3_BUCKET_NAME:homebrew-packages}
 spring:
+  app:
+    url: http://localhost:8080/v1/uploadPackage
   data:
     mongodb:
       uri: mongodb://${MONGO_DB_USERNAME:mongoadmin}:${MONGO_DB_PASSWORD:root}@${MONGO_DB_HOST:localhost}:${MONGO_DB_PORT:27017}/admin
