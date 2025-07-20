@@ -7,6 +7,7 @@ aws:
       secretKey: ${AWS_S3_SECRET_KEY:}
       region: ${AWS_S3_STORAGE_REGION:eu-north-1}
       bucket-name: ${AWS_S3_BUCKET_NAME:homebrew-packages}
+      preSigned-url-ttl: ${AWS_S3_PRESIGNED_URL_TTL:10}
 spring:
   app:
     url: http://localhost:8080/v1/uploadPackage
