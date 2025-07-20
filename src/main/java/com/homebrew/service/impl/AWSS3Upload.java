@@ -61,7 +61,7 @@ public class AWSS3Upload implements UploadStrategy {
                     .key(key)
                     .build();
             GetObjectPresignRequest preSignRequest = GetObjectPresignRequest.builder()
-                    .signatureDuration(Duration.ofMinutes(10))
+                    .signatureDuration(Duration.ofMinutes(urlTTL))
                     .getObjectRequest(getObjectRequest)
                     .build();
             PresignedGetObjectRequest preSignedRequest = s3Presigner.presignGetObject(preSignRequest);
