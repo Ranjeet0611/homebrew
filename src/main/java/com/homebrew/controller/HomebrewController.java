@@ -31,18 +31,18 @@ public class HomebrewController {
         String s3Url = packageService.savePackage(file, packageRequest);
         Response<String> response = new Response.ResponseBuilder<String>()
                 .setData(s3Url)
-                .setTimeStamp()
+                .setTimestamp()
                 .setStatus(HttpStatus.OK.toString()).build();
         return ResponseEntity.ok(response);
     }
 
     @GetMapping(value = "/getPackage")
-    public ResponseEntity<Response<PackageMetaData>> getPackageByName(@RequestParam String packageName){
+    public ResponseEntity<Response<PackageMetaData>> getPackageByName(@RequestParam String packageName) {
         Package latestVersion = packageService.getLatestVersion(packageName);
-        PackageMetaData packageMetaData = new PackageMetaData(latestVersion.getName(),latestVersion.getVersion(),latestVersion.getDownloadUrl());
+        PackageMetaData packageMetaData = new PackageMetaData(latestVersion.getName(), latestVersion.getVersion(), latestVersion.getDownloadUrl());
         Response<PackageMetaData> response = new Response.ResponseBuilder<PackageMetaData>()
                 .setData(packageMetaData)
-                .setTimeStamp()
+                .setTimestamp()
                 .setStatus(HttpStatus.OK.toString()).build();
         return ResponseEntity.ok(response);
     }

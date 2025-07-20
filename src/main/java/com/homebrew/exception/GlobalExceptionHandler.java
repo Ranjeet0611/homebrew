@@ -13,9 +13,16 @@ public class GlobalExceptionHandler {
         ErrorResponse<String> errorResponse = new ErrorResponse.ErrorResponseBuilder<String>().setMessage(e.getMessage()).build();
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
+
     @ExceptionHandler({S3UploadFailException.class})
-    public ResponseEntity<ErrorResponse<String>> handleS3UploadFailException(Exception e){
+    public ResponseEntity<ErrorResponse<String>> handleS3UploadFailException(Exception e) {
         ErrorResponse<String> errorResponse = new ErrorResponse.ErrorResponseBuilder<String>().setMessage(e.getMessage()).build();
-        return new ResponseEntity<>(errorResponse,HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler({FailedToGeneratePreSignedUrlException.class})
+    public ResponseEntity<ErrorResponse<String>> handleFailedToGeneratePreSignedUrlException(Exception e) {
+        ErrorResponse<String> errorResponse = new ErrorResponse.ErrorResponseBuilder<String>().setMessage(e.getMessage()).build();
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

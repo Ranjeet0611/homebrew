@@ -10,16 +10,16 @@ import java.util.Date;
 public class Response<T> {
     private T data;
     private String status;
-    private long timeStamp;
+    private long timestamp;
     public Response(ResponseBuilder<T> responseBuilder){
         this.data = responseBuilder.data;
         this.status = responseBuilder.status;
-        this.timeStamp = responseBuilder.timeStamp;
+        this.timestamp = responseBuilder.timestamp;
     }
     public static class ResponseBuilder<T>{
         private T data;
         private String status;
-        private long timeStamp;
+        private long timestamp;
         public ResponseBuilder<T> setData(T data){
             this.data = data;
             return this;
@@ -28,8 +28,8 @@ public class Response<T> {
             this.status = status;
             return this;
         }
-        public ResponseBuilder<T> setTimeStamp(){
-            this.timeStamp = new Date().getTime();
+        public ResponseBuilder<T> setTimestamp(){
+            this.timestamp = new Date().getTime();
             return this;
         }
         public Response<T> build(){
