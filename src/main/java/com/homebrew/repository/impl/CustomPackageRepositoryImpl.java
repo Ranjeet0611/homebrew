@@ -19,13 +19,13 @@ public class CustomPackageRepositoryImpl implements CustomPackageRepository {
     @Override
     public List<Package> getPackageByName(String name) {
         try {
-            log.info("Start getPackageByNameAndVersion :{}", name);
+            log.info("Start getPackageByName :{}", name);
             Criteria criteria = Criteria.where("name").is(name);
             Query query = new Query(criteria);
             query.with(Sort.by(Sort.Direction.DESC,"createdAt"));
             return mongoTemplate.find(query, Package.class);
         } catch (Exception e) {
-            log.error("Exception occurred while getPackageByNameAndVersion :{} :{}", e, e.getMessage());
+            log.error("Exception occurred while getPackageByName :{} :{}", e, e.getMessage());
             throw e;
         }
     }
