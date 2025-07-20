@@ -2,6 +2,7 @@ package com.homebrew.cli.util;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.homebrew.cli.model.InstalledPackageMetaData;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -44,11 +45,11 @@ public class PackageManagerUtil {
         }
     }
 
-    public static List<String> readInstalled() throws IOException {
-        return objectMapper.readValue(installedJson.toFile(), new TypeReference<List<String>>() {});
+    public static List<InstalledPackageMetaData> readInstalled() throws IOException {
+        return objectMapper.readValue(installedJson.toFile(), new TypeReference<>() {});
     }
 
-    public static void writeInstalled(List<String> packages) throws IOException {
+    public static void writeInstalled(List<InstalledPackageMetaData> packages) throws IOException {
         objectMapper.writeValue(installedJson.toFile(), packages);
     }
     public static String getConfig(String name) throws IOException {

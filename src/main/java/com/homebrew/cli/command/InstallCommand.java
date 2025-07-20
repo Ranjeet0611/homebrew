@@ -2,6 +2,7 @@ package com.homebrew.cli.command;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.homebrew.cli.model.InstalledPackageMetaData;
 import com.homebrew.cli.model.PackageMetaData;
 import com.homebrew.cli.model.Response;
 import com.homebrew.cli.util.PackageManagerUtil;
@@ -37,16 +38,20 @@ public class InstallCommand implements Runnable {
                 System.err.println("Package not found on server");
                 return;
             }
-            Response<PackageMetaData> metadata = new ObjectMapper().readValue(conn.getInputStream(), new TypeReference<Response<PackageMetaData>>() {
+            Response<PackageMetaData> metadata = new ObjectMapper().readValue(conn.getInputStream(), new TypeReference<>() {
             });
             URL s3Url = new URL(metadata.getData().getS3Url());
             try (InputStream in = s3Url.openStream()) {
                 Path outputDir = PackageManagerUtil.installDir.resolve(packageName);
                 PackageManagerUtil.extractZip(in, outputDir);
             }
-
-            List<String> installed = PackageManagerUtil.readInstalled();
-            if (!installed.contains(packageName)) installed.add(packageName);
+            InstalledPackageMetaData installedPackageMetaData = new InstalledPackageMetaData();
+            installedPackageMetaData.setName(metadata.getData().getName());
+            installedPackageMetaData.setVersion(metadata.getData().getVersion());
+            List<InstalledPackageMetaData> installed = PackageManagerUtil.readInstalled();
+            if (!installed.contains(installedPackageMetaData)) {
+                installed.add(installedPackageMetaData);
+            }
             PackageManagerUtil.writeInstalled(installed);
 
             log.info("Package Installed :{}", packageName);
