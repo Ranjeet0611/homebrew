@@ -21,6 +21,6 @@ Custom homebrew is a custom package manager written in Java. It connects to a Sp
 
 🖥️ CLI Commands
 
-custombrew install <package-name>
-custombrew list
-custombrew uninstall <package-name>  # (coming soon)
+    install <package-name> # testing in progress
+    list # (coming soon)
+    uninstall <package-name>  # (coming soon)
